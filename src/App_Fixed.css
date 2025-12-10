@@ -149,9 +149,11 @@
 }
 
 .mode-title-static {
-    padding-top: 20px !important;
+    padding-top: 30px !important;
+    /* Slightly more airy than 20px */
     margin-top: 0 !important;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    /* Increased separation from circle */
     text-align: center;
     width: 100%;
     display: block;
