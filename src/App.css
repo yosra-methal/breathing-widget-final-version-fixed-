@@ -138,7 +138,7 @@
 }
 
 .mode-title-static {
-    padding-top: 40px !important;
+    padding-top: 60px !important;
     margin-top: 0 !important;
     margin-bottom: 20px;
     text-align: center;
@@ -205,6 +205,8 @@
 
 .start-button,
 .stop-button {
+    width: 100%;
+    /* Force full width centering */
     margin-top: 10px;
     padding: 12px 30px;
     border: none;
