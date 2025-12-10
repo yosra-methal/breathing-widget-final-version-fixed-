@@ -1,0 +1,314 @@
+/* reuse index.css variables */
+
+.app-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px !important;
+    box-sizing: border-box;
+    /* Widget Frame Styles */
+    background: white;
+    /* Since body is white, we might need a border to show the frame or just shadow?
+       User said: "The entire widget should be framed like a card". 
+       So the app-container IS the card?
+       Or we wrap content in a card. app-container is 100vh.
+       If embedded, the iframe is the window.
+       Let's assume app-container is the specific card centered in the iframe.
+    */
+    border-radius: 32px;
+    /* Significantly more rounded */
+    /* Slightly more rounded */
+    /* Light shadow */
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+
+    /* Ensure it fits in small iframe */
+    max-width: 90vw;
+    max-height: 90vh;
+    margin: auto;
+    /* Center in viewport */
+}
+
+/* Make body transparent or matching? 
+   User asked "background must be PURE WHITE".
+   If we put a shadow, the background BEHIND the card must be visible or differing?
+   Usually Notion embeds have their own background.
+   Let's keep body white, but maybe slightly off-white to see the card? 
+   No, user said "background must be PURE WHITE". 
+   If bg is white and card is white, shadow is visible only at borders.
+*/
+
+/* Layout */
+.selection-view,
+.exercise-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Circle */
+.circle-container {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Outer Circle: Fixed Size */
+.breathing-circle-outer {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    /* No scale transition on outer circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+}
+
+/* Donut Hole: Animates Size */
+.donut-hole {
+    width: 215px;
+    /* Starts very thin ring (almost full cover) */
+    height: 215px;
+    /* Or use %? Let's use px for predictable border thickness */
+    background: white;
+    /* Matches card bg */
+    border-radius: 50%;
+    transition: transform ease-in-out;
+    /* Controlled by JS duration */
+    /* Transform origin center */
+}
+
+/* Animation Logic: Scale the HOLE */
+/* Inhale: Ring THICKENS => Hole SHRINKS (Scale down) */
+.donut-hole.inhale {
+    transform: scale(0.65);
+    /* Hole becomes 65% size => Thick Ring */
+}
+
+/* Hold: State maintained */
+.donut-hole.hold {
+    transform: scale(0.65);
+    /* Mantain Thick */
+}
+
+/* Exhale: Ring THINS => Hole EXPANDS (Scale up) */
+.donut-hole.exhale {
+    transform: scale(0.95);
+    /* Hole becomes 95% size => Thin Ring */
+}
+
+/* HoldEmpty: State maintained */
+.donut-hole.holdEmpty {
+    transform: scale(0.95);
+    /* Maintain Thin */
+}
+
+/* Ready State (Initial Mount) - Same as Exhale/Thin */
+.donut-hole.ready {
+    transform: scale(0.95);
+}
+
+/* Static Default */
+.breathing-circle.static {
+    transform: none;
+    /* or scale(1) */
+}
+
+/* Solid Circle for Selection View */
+.breathing-circle-solid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.mode-title-static {
+    font-weight: 700;
+    /* Bold */
+    letter-spacing: 0.5px;
+    font-size: 2.5rem;
+    /* Slightly bigger */
+    margin: 0;
+    margin-top: 60px !important;
+    /* Balanced low position */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.mode-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.mode-selector button {
+    box-sizing: border-box;
+    /* Critical Safari Fix */
+    background: white;
+    border: 2px solid transparent;
+    /* Match active state width */
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    color: var(--color-text);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s;
+    /* Ensure buttons don't shrink too much */
+    flex: 0 1 auto;
+}
+
+.mode-selector button.active {
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.start-button,
+.stop-button {
+    margin-top: 10px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    background: #2c3e50;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    /* Extra safety formatting */
+}
+
+/* Slider Styling */
+.duration-selector-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.duration-label {
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+}
+
+.slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.duration-slider {
+    width: 100%;
+    cursor: pointer;
+    height: 6px;
+    background: #eee;
+    border-radius: 5px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.duration-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: currentColor;
+    /* Uses accent-color ideally, or set via JS style */
+    cursor: pointer;
+}
+
+.slider-minmax {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #999;
+}
+
+/* Exercise View Specifics */
+.instruction-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.instruction-text {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.seconds-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+}
+
+.footer-controls {
+    display: flex;
+    flex-direction: column;
+    /* Stack vertically as requested */
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.toggle-seconds {
+    background: transparent;
+    border: none;
+    /* Cleaner look */
+    /* border: 1px solid #ddd; */
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: #999;
+    /* Subtle */
+    transition: all 0.2s;
+    text-decoration: underline;
+    /* Make it look like a quiet link/toggle */
+}
+
+.toggle-seconds:hover {
+    color: #666;
+    background: transparent;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--color-text);
+    font-weight: 500;
+}
