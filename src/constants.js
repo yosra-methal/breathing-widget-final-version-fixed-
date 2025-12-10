@@ -2,7 +2,7 @@ export const MODES = {
     grounding: {
         id: 'grounding',
         title: 'Grounding', // Display title
-        label: 'Grounding (4-0-6s)', // Button label
+        label: 'Grounding (4-6)', // Removed '0-' and 's'
         inhale: 4,
         hold: 0,
         exhale: 6,
@@ -14,7 +14,7 @@ export const MODES = {
     calm: {
         id: 'calm',
         title: 'Calm & Rest',
-        label: 'Calm & Rest (5-0-5s)',
+        label: 'Calm & Rest (5-5)', // Removed '0-' and 's'
         inhale: 5,
         hold: 0,
         exhale: 5,
@@ -26,14 +26,11 @@ export const MODES = {
     focus: {
         id: 'focus',
         title: 'Focus',
-        label: 'Focus (4-4-4s)',
+        label: 'Focus (4-4-4)', // Removed 's'
         inhale: 4,
         hold: 4,
         exhale: 4,
-        holdEmpty: 4, // Box breathing usually has hold after exhale too? "4-4-4s" usually implies triangular or box. User said 4-4-4s. Let's assume Inhale 4, Hold 4, Exhale 4, HoldEmpty 0 based on "4-4-4s". Wait, standard Box is 4-4-4-4. Triangular is 4-4-4.
-        // User wrote: "Mode 3: Focus (4-4-4s)" implies 3 phases. I will stick to Inhale-Hold-Exhale 4-4-4.
-        // However, if it's box breathing, it should be 4-4-4-4. "Focus" is often Box.
-        // Let's strictly follow "4-4-4s" -> 4 inhale, 4 hold, 4 exhale.
+        holdEmpty: 4,
         defaultDuration: 180, // 3 minutes
         gradient: 'var(--gradient-focus)',
         textColor: '#d84315' // Dark orange
@@ -41,12 +38,12 @@ export const MODES = {
     sleep: {
         id: 'sleep',
         title: 'Sleep & Relax',
-        label: 'Sleep & Relax (4-7-8s)',
+        label: 'Sleep & Relax (4-7-8)', // Removed 's'
         inhale: 4,
         hold: 7,
         exhale: 8,
         holdEmpty: 0,
-        defaultDuration: null, // Special case: cycle count
+        defaultDuration: 300, // Default 5 mins instead of cycles
         defaultCycles: 4,
         gradient: 'var(--gradient-sleep)',
         textColor: '#4527a0' // Dark purple
