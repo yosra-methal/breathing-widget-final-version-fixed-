@@ -35,32 +35,39 @@ function App() {
         const handleResize = () => {
             if (!containerRef.current || !contentRef.current) return;
 
-            const availableWidth = containerRef.current.clientWidth;
-            const availableHeight = containerRef.current.clientHeight;
+            const availWidth = containerRef.current.clientWidth;
+            const availHeight = containerRef.current.clientHeight;
 
-            const TARGET_WIDTH = 400; // Constant W
-            // Optional: Handle height scaling too if needed, but width is primary concern
-            // const TARGET_HEIGHT = 600; // approximate?
+            // Natural Stats
+            // We use 400 as the "Design Source of Truth" for width
+            const NATURAL_WIDTH = 400;
+            // We measure height dynamically because it changes between views
+            const naturalHeight = contentRef.current.offsetHeight;
 
-            // Logic: Min(1, Available / Target)
-            // We scale based on WIDTH primarily to prevent cropping.
-            const scale = Math.min(1, availableWidth / TARGET_WIDTH);
+            // Calculate ratios
+            const scaleWidth = availWidth / NATURAL_WIDTH;
+            const scaleHeight = availHeight / naturalHeight;
+
+            // "Contain" logic: Fit completely inside available space
+            // Allow growing (>1) and shrinking (<1)
+            const scale = Math.min(scaleWidth, scaleHeight);
+
+            // Safety check
+            if (!isFinite(scale) || scale <= 0) return;
 
             // Apply Transform
             contentRef.current.style.transform = `scale(${scale})`;
-            // No layout shift, pure visual scale
         };
 
-        // ResizeObserver for more robust detection than window.resize
+        // Observe both container (resize) and content (view change)
         const observer = new ResizeObserver(handleResize);
-        if (containerRef.current) {
-            observer.observe(containerRef.current);
-        }
+        if (containerRef.current) observer.observe(containerRef.current);
+        if (contentRef.current) observer.observe(contentRef.current);
 
         handleResize(); // Initial
 
         return () => observer.disconnect();
-    }, []);
+    }, [view]); // Re-run when view changes just in case, though observer handles it
 
     const handleStart = () => {
         setView('EXERCISE');
