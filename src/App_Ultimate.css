@@ -67,7 +67,12 @@
 .circle-container {
     position: relative;
     width: 280px;
-    height: 280px;
+    max-width: 100%;
+    /* Prevent circle from blowing out narrow screens */
+    aspect-ratio: 1;
+    /* Maintain circle shape if shrunk */
+    height: auto;
+    /* Allow height to adjust if width shrinks */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,8 +80,9 @@
 
 /* Outer Circle: Fixed Size */
 .breathing-circle-outer {
-    width: 220px;
-    height: 220px;
+    width: 100%;
+    /* Responsive to container */
+    height: 100%;
     border-radius: 50%;
     /* No scale transition on outer circle */
     display: flex;
@@ -93,9 +99,9 @@
 
 /* Donut Hole: Animates Size */
 .donut-hole {
-    width: 215px;
-    /* Starts very thin ring (almost full cover) */
-    height: 215px;
+    width: 96%;
+    /* Slightly smaller than outer */
+    height: 96%;
     /* Or use %? Let's use px for predictable border thickness */
     background: white;
     /* Matches card bg */
@@ -201,25 +207,22 @@
     background: white;
 
     /* Layout */
-    width: 46%;
-    /* Reduced from 48% for safety */
-    height: 46px;
-    /* Reduced from 54px for better proportion */
+    width: calc(50% - 6px);
+    /* Mathematically perfect split with 12px gap */
+    height: 48px;
+    /* Balanced height */
     margin: 0;
     padding: 0 4px;
-    /* Minimal padding */
     box-sizing: border-box;
 
     /* Decoration */
     border: 2px solid transparent;
-    border-radius: 16px;
-    /* Slightly tighter radius */
+    border-radius: 18px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
 
     /* Typography */
     font-family: var(--font-family);
-    font-size: 0.8rem;
-    /* Smaller text to fit */
+    font-size: 0.85rem;
     color: var(--color-text);
     text-align: center;
     cursor: pointer;
@@ -231,7 +234,7 @@
     align-items: center;
 
     /* Safari Flex Safety */
-    flex: 0 0 46%;
+    flex: 0 0 calc(50% - 6px);
     /* Locked width */
 }
 
