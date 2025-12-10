@@ -15,11 +15,16 @@
     /* Lavender */
 }
 
+html {
+    background: transparent !important;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: var(--font-family);
-    background-color: var(--color-bg);
+    background-color: transparent !important;
+    /* Force transparent for iframe */
     color: var(--color-text);
     display: flex;
     justify-content: center;

@@ -81,7 +81,7 @@ function App() {
     };
 
     return (
-        <div className="widget-viewport" ref={viewportRef} style={{ background: 'var(--color-bg)' }}>
+        <div className="widget-viewport" ref={viewportRef}>
             <div className="widget-scale-root" ref={scaleRootRef}>
                 <div className="widget-root" ref={contentRef}>
                     {view === 'SELECTION' ? (
