@@ -37,24 +37,26 @@ function App() {
 
     return (
         <div className="app-container" style={{ background: 'var(--color-bg)' }}>
-            {view === 'SELECTION' ? (
-                <SelectionView
-                    currentModeId={currentModeId}
-                    setMode={setCurrentModeId}
-                    duration={selectedDuration}
-                    setDuration={setSelectedDuration}
-                    // Cycle props for sleep mode could be added here if we want a selector for it?
-                    // User only mentioned specific duration selector 1,2,3,5,10m.
-                    onStart={handleStart}
-                />
-            ) : (
-                <ExerciseView
-                    mode={currentMode}
-                    duration={selectedDuration}
-                    cycleLimit={currentMode.id === 'sleep' ? cycleCount : null}
-                    onStop={handleStop}
-                />
-            )}
+            <div className="widget-lock-wrapper">
+                {view === 'SELECTION' ? (
+                    <SelectionView
+                        currentModeId={currentModeId}
+                        setMode={setCurrentModeId}
+                        duration={selectedDuration}
+                        setDuration={setSelectedDuration}
+                        // Cycle props for sleep mode could be added here if we want a selector for it?
+                        // User only mentioned specific duration selector 1,2,3,5,10m.
+                        onStart={handleStart}
+                    />
+                ) : (
+                    <ExerciseView
+                        mode={currentMode}
+                        duration={selectedDuration}
+                        cycleLimit={currentMode.id === 'sleep' ? cycleCount : null}
+                        onStop={handleStop}
+                    />
+                )}
+            </div>
         </div>
     )
 }
