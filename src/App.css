@@ -62,12 +62,14 @@
     margin-bottom: 30px;
 }
 
-position: relative;
-width: 280px;
-height: 280px;
-display: flex;
-justify-content: center;
-align-items: center;
+/* Circle */
+.circle-container {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Outer Circle: Fixed Size */
