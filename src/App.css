@@ -331,3 +331,22 @@
     color: var(--color-text);
     font-weight: 500;
 }
+
+/* SAFARI-SPECIFIC FIX: Force bottom expansion */
+/* This targets WebKit browsers (Safari) specifically to fix the overflow clipping */
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+        .footer-controls {
+            margin-bottom: 60px !important;
+            padding-bottom: 30px !important;
+        }
+
+        .app-container {
+            display: block !important;
+            /* Safety fallback for flex bugs */
+            height: auto !important;
+            min-height: 100vh !important;
+            padding-bottom: 60px !important;
+        }
+    }
+}
