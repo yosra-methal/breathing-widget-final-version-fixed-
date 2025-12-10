@@ -49,16 +49,6 @@
    If bg is white and card is white, shadow is visible only at borders.
 */
 
-/* NON-INTRUSIVE OUTER LOCK */
-.outer-shell-lock {
-    width: 400px;
-    /* Fixed Layout Width */
-    margin: 0 auto;
-    /* Center it */
-    box-sizing: border-box;
-    /* Scaling handled via JS Zoom */
-}
-
 /* Layout */
 .selection-view,
 .exercise-view {
@@ -409,18 +399,6 @@
 
 /* SAFARI-SPECIFIC FIX: Force bottom expansion */
 /* This targets WebKit browsers (Safari) specifically to fix the overflow clipping */
-/* SAFARI & MOBILE FIX: Standard WebKit Handling */
-.app-container {
-    /* Existing properties... */
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    /* Standards-compliant Safari Fix */
-    height: auto;
-
-    padding-bottom: 40px !important;
-    padding-bottom: calc(40px + env(safe-area-inset-bottom)) !important;
-    /* Handle Home Bar */
-}
 
 /* Ensure body respects full height on mobile */
 html {

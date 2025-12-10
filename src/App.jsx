@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import { MODES } from './constants'
 import SelectionView from './components/SelectionView'
 import ExerciseView from './components/ExerciseView'
@@ -12,6 +12,9 @@ function App() {
     // We can track time OR cycles. Let's store selectedDuration for time-based modes.
     const [selectedDuration, setSelectedDuration] = useState(MODES.grounding.defaultDuration);
     const [cycleCount, setCycleCount] = useState(4); // Only for 'sleep'
+
+    const containerRef = useRef(null);
+    const contentRef = useRef(null);
 
     const currentMode = MODES[currentModeId];
 
@@ -27,27 +30,36 @@ function App() {
         }
     }, [currentModeId]);
 
-    // Dynamic Scaling for Iframe Safety
-    const [scale, setScale] = useState(1);
-
-    useEffect(() => {
+    // PRECISE SCALING LOGIC (CSS TRANSFORM)
+    useLayoutEffect(() => {
         const handleResize = () => {
-            const TARGET_WIDTH = 400; // The fixed internal width
-            const availableWidth = window.innerWidth;
+            if (!containerRef.current || !contentRef.current) return;
 
-            // If iframe is smaller than widget, scale down.
-            // If iframe is larger, stay at 1 (centering handled by margin: auto)
-            if (availableWidth < TARGET_WIDTH) {
-                setScale(availableWidth / TARGET_WIDTH);
-            } else {
-                setScale(1);
-            }
+            const availableWidth = containerRef.current.clientWidth;
+            const availableHeight = containerRef.current.clientHeight;
+
+            const TARGET_WIDTH = 400; // Constant W
+            // Optional: Handle height scaling too if needed, but width is primary concern
+            // const TARGET_HEIGHT = 600; // approximate?
+
+            // Logic: Min(1, Available / Target)
+            // We scale based on WIDTH primarily to prevent cropping.
+            const scale = Math.min(1, availableWidth / TARGET_WIDTH);
+
+            // Apply Transform
+            contentRef.current.style.transform = `scale(${scale})`;
+            // No layout shift, pure visual scale
         };
 
-        window.addEventListener('resize', handleResize);
-        handleResize(); // Initial check
+        // ResizeObserver for more robust detection than window.resize
+        const observer = new ResizeObserver(handleResize);
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
 
-        return () => window.removeEventListener('resize', handleResize);
+        handleResize(); // Initial
+
+        return () => observer.disconnect();
     }, []);
 
     const handleStart = () => {
@@ -59,8 +71,8 @@ function App() {
     };
 
     return (
-        <div className="outer-shell-lock" style={{ zoom: scale }}>
-            <div className="app-container" style={{ background: 'var(--color-bg)' }}>
+        <div className="scaler-container" ref={containerRef} style={{ background: 'var(--color-bg)' }}>
+            <div className="app-container" ref={contentRef}>
                 {view === 'SELECTION' ? (
                     <SelectionView
                         currentModeId={currentModeId}
