@@ -2,13 +2,16 @@
 
 .app-container {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    /* Allow growth, don't clip */
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 40px !important;
-    padding-bottom: 30px !important;
+    padding-bottom: 40px !important;
+    /* Increased safety margin */
     /* Safety margin for Start button */
     box-sizing: border-box;
     /* Widget Frame Styles */
