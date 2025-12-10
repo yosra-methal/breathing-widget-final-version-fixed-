@@ -27,6 +27,29 @@ function App() {
         }
     }, [currentModeId]);
 
+    // Dynamic Scaling for Iframe Safety
+    const [scale, setScale] = useState(1);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const TARGET_WIDTH = 400; // The fixed internal width
+            const availableWidth = window.innerWidth;
+
+            // If iframe is smaller than widget, scale down.
+            // If iframe is larger, stay at 1 (centering handled by margin: auto)
+            if (availableWidth < TARGET_WIDTH) {
+                setScale(availableWidth / TARGET_WIDTH);
+            } else {
+                setScale(1);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial check
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const handleStart = () => {
         setView('EXERCISE');
     };
@@ -36,7 +59,7 @@ function App() {
     };
 
     return (
-        <div className="outer-shell-lock">
+        <div className="outer-shell-lock" style={{ zoom: scale }}>
             <div className="app-container" style={{ background: 'var(--color-bg)' }}>
                 {view === 'SELECTION' ? (
                     <SelectionView

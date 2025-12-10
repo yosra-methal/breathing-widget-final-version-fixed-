@@ -51,15 +51,12 @@
 
 /* NON-INTRUSIVE OUTER LOCK */
 .outer-shell-lock {
-    display: flex;
-    justify-content: center;
-    /* Center container if iframe > 400px */
-    width: 100%;
-    /* Fill iframe */
-    min-width: 400px;
-    /* HARD LOCK: Never shrink below this */
+    width: 400px;
+    /* Fixed Layout Width */
+    margin: 0 auto;
+    /* Center it */
     box-sizing: border-box;
-    /* Ensure padding doesn't skew */
+    /* Scaling handled via JS Zoom */
 }
 
 /* Layout */
