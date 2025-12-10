@@ -83,7 +83,7 @@ function App() {
     return (
         <div className="widget-viewport" ref={viewportRef} style={{ background: 'var(--color-bg)' }}>
             <div className="widget-scale-root" ref={scaleRootRef}>
-                <div className="app-container" ref={contentRef}>
+                <div className="widget-root" ref={contentRef}>
                     {view === 'SELECTION' ? (
                         <SelectionView
                             currentModeId={currentModeId}
