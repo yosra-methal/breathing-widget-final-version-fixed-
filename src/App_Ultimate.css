@@ -9,9 +9,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 40px !important;
-    padding-top: 40px !important;
-    padding-bottom: 40px !important;
+    padding: 20px 20px !important;
+    /* Reduced horizontal padding to prevent bleed */
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
     /* Safety margin for Start button */
     box-sizing: border-box;
     /* Widget Frame Styles */
@@ -200,23 +201,25 @@
     background: white;
 
     /* Layout */
-    width: 48%;
-    /* Precise 2-col width */
-    height: 54px;
-    /* Explicit height */
+    width: 46%;
+    /* Reduced from 48% for safety */
+    height: 46px;
+    /* Reduced from 54px for better proportion */
     margin: 0;
-    padding: 0 8px;
-    /* Safe padding */
+    padding: 0 4px;
+    /* Minimal padding */
     box-sizing: border-box;
 
     /* Decoration */
     border: 2px solid transparent;
-    border-radius: 20px;
+    border-radius: 16px;
+    /* Slightly tighter radius */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
 
     /* Typography */
     font-family: var(--font-family);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    /* Smaller text to fit */
     color: var(--color-text);
     text-align: center;
     cursor: pointer;
@@ -228,8 +231,8 @@
     align-items: center;
 
     /* Safari Flex Safety */
-    flex: 0 0 48%;
-    /* Don't grow, don't shrink, stay 48% */
+    flex: 0 0 46%;
+    /* Locked width */
 }
 
 .mode-row button.active {
