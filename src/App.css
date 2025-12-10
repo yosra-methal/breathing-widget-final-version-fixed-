@@ -138,16 +138,16 @@
 }
 
 .mode-title-static {
-    font-weight: 700;
-    /* Bold */
-    letter-spacing: 0.5px;
-    font-size: 2.5rem;
-    /* Slightly bigger */
-    margin: 0;
-    margin-top: 60px !important;
-    /* Balanced low position */
+    padding-top: 40px !important;
+    margin-top: 0 !important;
     margin-bottom: 20px;
     text-align: center;
+    width: 100%;
+    display: block;
+    /* Font styles */
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 2.5rem;
 }
 
 /* Controls */
@@ -158,14 +158,26 @@
     width: 100%;
 }
 
+/* Layout: Strict Grid for Buttons */
 .mode-selector {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    gap: 12px;
     width: 100%;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: stretch;
+    /* Ensure equal height */
+}
+
+/* Ensure buttons take full grid cell */
+.mode-selector button {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    flex: none !important;
+    /* Disable flex behavior if inherited */
 }
 
 .mode-selector button {
