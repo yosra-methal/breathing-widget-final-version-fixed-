@@ -149,11 +149,10 @@
 }
 
 .mode-title-static {
-    padding-top: 30px !important;
-    /* Slightly more airy than 20px */
+    padding-top: 15px !important;
     margin-top: 0 !important;
-    margin-bottom: 30px;
-    /* Increased separation from circle */
+    margin-bottom: 10px;
+    /* Moved closer to circle */
     text-align: center;
     width: 100%;
     display: block;
@@ -180,6 +179,8 @@
     gap: 12px;
     width: 100%;
     margin-bottom: 20px;
+    flex-shrink: 0;
+    /* Prevent collapsing */
 }
 
 .mode-row {
@@ -187,6 +188,7 @@
     flex-direction: row;
     /* Side by side buttons */
     justify-content: space-between;
+    align-items: center;
     width: 100%;
 }
 
@@ -203,8 +205,8 @@
     height: 54px;
     /* Explicit height */
     margin: 0;
-    padding: 0 10px;
-    /* Horizontal padding only */
+    padding: 0 8px;
+    /* Safe padding */
     box-sizing: border-box;
 
     /* Decoration */
@@ -224,6 +226,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* Safari Flex Safety */
+    flex: 0 0 48%;
+    /* Don't grow, don't shrink, stay 48% */
 }
 
 .mode-row button.active {
