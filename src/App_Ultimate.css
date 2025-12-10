@@ -12,23 +12,41 @@
 }
 
 /* 2) SCALE ROOT: The Stage that gets transformed */
+/* 2) SCALE ROOT: The Stage that gets transformed */
 .widget-scale-root {
     width: 400px;
     /* BASE DESIGN WIDTH */
     height: auto;
     /* Adapts to content height */
     transform-origin: center center;
-    /* Significantly more rounded */
-    /* Slightly more rounded */
-    /* Light shadow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* No margins/padding, no shadow */
+}
+
+/* 3) WIDGET ROOT: The Single Visual Card */
+.widget-root {
+    width: 400px;
+    /* Base Width */
+    height: auto;
+
+    /* VISUAL CARD STYLES */
+    background: white;
+    border-radius: 32px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
 
-    /* Ensure it fits in small iframe */
-    max-width: 90vw;
-    max-height: 90vh;
+    /* Internal Layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    margin: auto;
-    /* Center in viewport */
+    padding: 30px 20px !important;
+
+    margin: 0;
+    flex-shrink: 0;
 }
 
 /* Make body transparent or matching? 
