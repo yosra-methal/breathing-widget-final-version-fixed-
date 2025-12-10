@@ -9,9 +9,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px !important;
+    padding: 20px 40px !important;
+    padding-top: 40px !important;
     padding-bottom: 40px !important;
-    /* Increased safety margin */
     /* Safety margin for Start button */
     box-sizing: border-box;
     /* Widget Frame Styles */
@@ -149,7 +149,7 @@
 }
 
 .mode-title-static {
-    padding-top: 60px !important;
+    padding-top: 20px !important;
     margin-top: 0 !important;
     margin-bottom: 20px;
     text-align: center;
