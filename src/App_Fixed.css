@@ -172,27 +172,26 @@
 }
 
 /* Layout: Strict Grid for Buttons */
-/* Layout: Robust Flexbox for Safari Compatibility */
-.mode-selector {
-    display: flex !important;
-    /* Replaced Grid with Flex */
-    display: -webkit-flex !important;
-    /* WebKit Prefix */
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    /* Distribute buttons */
-    /* gap: 12px; REMOVED unreliable gap on old Safari */
+/* Layout: Explicit Rows for Safari Stability (NUCLEAR OPTION) */
+.mode-selector-rows {
+    display: flex;
+    flex-direction: column;
+    /* Stack the two rows vertically */
+    gap: 12px;
     width: 100%;
     margin-bottom: 20px;
-
-    /* Prevent Safari from squashing this container */
-    flex-shrink: 0;
 }
 
-/* Ensure buttons take full grid cell */
-/* Ensure buttons take calculated width for 2-column layout */
-.mode-selector button {
+.mode-row {
+    display: flex;
+    flex-direction: row;
+    /* Side by side buttons */
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Ensure buttons take calculated width within their row */
+.mode-row button {
     /* RESET NATIVE STYLES for Safari/WebKit */
     -webkit-appearance: none;
     appearance: none;
@@ -200,17 +199,16 @@
 
     /* Layout */
     width: 48%;
-    /* Simulates 2-col grid */
-    min-height: 50px;
+    /* Precise 2-col width */
+    height: 54px;
+    /* Explicit height */
     margin: 0;
-    margin-bottom: 12px;
-    /* Simulate vertical gap */
-    padding: 12px 4px;
+    padding: 0 10px;
+    /* Horizontal padding only */
     box-sizing: border-box;
 
     /* Decoration */
     border: 2px solid transparent;
-    /* Match active state border width */
     border-radius: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
 
@@ -222,15 +220,13 @@
     cursor: pointer;
     transition: all 0.2s;
 
-    /* Internal Centering Fix */
+    /* Flex Centering Content */
     display: flex;
-    display: -webkit-flex;
-    /* WebKit Prefix */
     justify-content: center;
     align-items: center;
 }
 
-.mode-selector button.active {
+.mode-row button.active {
     font-weight: 600;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     /* Border color usually comes from inline style or another class, standardizing logic */
