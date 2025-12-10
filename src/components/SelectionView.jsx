@@ -69,7 +69,7 @@ function SelectionView({ currentModeId, setMode, duration, setDuration, onStart 
                                     display: 'inline-block',
                                     marginRight: '8px'
                                 }}></span>
-                                {m.label}
+                                <span className="mode-label">{m.label}</span>
                             </button>
                         ))}
                     </div>
@@ -112,7 +112,7 @@ function SelectionView({ currentModeId, setMode, duration, setDuration, onStart 
                                     display: 'inline-block',
                                     marginRight: '8px'
                                 }}></span>
-                                {m.label}
+                                <span className="mode-label">{m.label}</span>
                             </button>
                         ))}
                     </div>
