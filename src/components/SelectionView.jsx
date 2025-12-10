@@ -149,9 +149,8 @@ function SelectionView({ currentModeId, setMode, duration, setDuration, onStart 
                     </button>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }
 
 export default SelectionView;
-```
