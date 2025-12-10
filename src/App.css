@@ -334,19 +334,20 @@
 
 /* SAFARI-SPECIFIC FIX: Force bottom expansion */
 /* This targets WebKit browsers (Safari) specifically to fix the overflow clipping */
-@media not all and (min-resolution:.001dpcm) {
-    @supports (-webkit-appearance:none) {
-        .footer-controls {
-            margin-bottom: 60px !important;
-            padding-bottom: 30px !important;
-        }
+/* UNIVERSAL SPACER HACK */
+.spacer-hack {
+    min-height: 80px;
+    width: 100%;
+    display: block;
+    pointer-events: none;
+}
 
-        .app-container {
-            display: block !important;
-            /* Safety fallback for flex bugs */
-            height: auto !important;
-            min-height: 100vh !important;
-            padding-bottom: 60px !important;
-        }
-    }
+/* Ensure no global clipping */
+html,
+body {
+    height: 100%;
+    overflow-y: auto !important;
+    /* Force scroll */
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scroll on Safari/iOS */
 }
