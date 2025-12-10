@@ -172,19 +172,26 @@
 }
 
 /* Layout: Strict Grid for Buttons */
+/* Layout: Robust Flexbox for Safari Compatibility */
 .mode-selector {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto auto;
-    gap: 12px;
+    display: flex !important;
+    /* Replaced Grid with Flex */
+    display: -webkit-flex !important;
+    /* WebKit Prefix */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* Distribute buttons */
+    /* gap: 12px; REMOVED unreliable gap on old Safari */
     width: 100%;
     margin-bottom: 20px;
-    justify-content: center;
+
     /* Prevent Safari from squashing this container */
     flex-shrink: 0;
 }
 
 /* Ensure buttons take full grid cell */
+/* Ensure buttons take calculated width for 2-column layout */
 .mode-selector button {
     /* RESET NATIVE STYLES for Safari/WebKit */
     -webkit-appearance: none;
@@ -192,10 +199,13 @@
     background: white;
 
     /* Layout */
+    width: 48%;
+    /* Simulates 2-col grid */
     min-height: 50px;
     margin: 0;
+    margin-bottom: 12px;
+    /* Simulate vertical gap */
     padding: 12px 4px;
-    /* Adjusted padding */
     box-sizing: border-box;
 
     /* Decoration */
@@ -214,6 +224,8 @@
 
     /* Internal Centering Fix */
     display: flex;
+    display: -webkit-flex;
+    /* WebKit Prefix */
     justify-content: center;
     align-items: center;
 }
