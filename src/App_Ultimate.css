@@ -183,9 +183,9 @@
     display: flex;
     flex-direction: column;
     /* Stack the two rows vertically */
-    gap: 12px;
+    gap: 8px;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     flex-shrink: 0;
     /* Prevent collapsing */
 }
@@ -209,7 +209,7 @@
     /* Layout */
     width: calc(50% - 6px);
     /* Mathematically perfect split with 12px gap */
-    height: 48px;
+    height: 42px;
     /* Balanced height */
     margin: 0;
     padding: 0 4px;
