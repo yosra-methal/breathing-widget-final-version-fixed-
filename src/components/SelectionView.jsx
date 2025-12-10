@@ -100,7 +100,6 @@ function SelectionView({ currentModeId, setMode, duration, setDuration, onStart 
                     <button className="start-button" onClick={onStart}>
                         START
                     </button>
-                    <div className="spacer-hack"></div> {/* Physical Spacer for Safari */}
                 </div>
             </div>
         </div>
@@ -108,3 +107,4 @@ function SelectionView({ currentModeId, setMode, duration, setDuration, onStart 
 }
 
 export default SelectionView;
+```
