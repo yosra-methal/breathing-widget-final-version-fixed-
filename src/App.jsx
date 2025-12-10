@@ -13,61 +13,64 @@ function App() {
     const [selectedDuration, setSelectedDuration] = useState(MODES.grounding.defaultDuration);
     const [cycleCount, setCycleCount] = useState(4); // Only for 'sleep'
 
-    const containerRef = useRef(null);
-    const contentRef = useRef(null);
+    const viewportRef = useRef(null);
+    const scaleRootRef = useRef(null);
+    const contentRef = useRef(null); // Keep ref to measure natural height if needed
 
     const currentMode = MODES[currentModeId];
 
-    // Reset duration when mode changes if it hasn't been manually set? 
-    // User spec: "Default duration (if not modified by the user)".
-    // So when mode changes, we should probably reset to that mode's default.
+    // Reset duration when mode changes
     useEffect(() => {
         if (currentMode.defaultDuration) {
             setSelectedDuration(currentMode.defaultDuration);
         } else if (currentMode.id === 'sleep') {
-            // Sleep uses cycles by default
             setCycleCount(currentMode.defaultCycles);
         }
     }, [currentModeId]);
 
-    // PRECISE SCALING LOGIC (CSS TRANSFORM)
+    // SCALE LOGIC
     useLayoutEffect(() => {
         const handleResize = () => {
-            if (!containerRef.current || !contentRef.current) return;
+            if (!viewportRef.current || !scaleRootRef.current || !contentRef.current) return;
 
-            const availWidth = containerRef.current.clientWidth;
-            const availHeight = containerRef.current.clientHeight;
+            const viewportRect = viewportRef.current.getBoundingClientRect();
+            const availW = viewportRect.width;
+            const availH = viewportRect.height;
 
-            // Natural Stats
-            // We use 400 as the "Design Source of Truth" for width
-            const NATURAL_WIDTH = 400;
-            // We measure height dynamically because it changes between views
-            const naturalHeight = contentRef.current.offsetHeight;
+            const BASE_WIDTH = 400;
+            // Measure actual height of the widget content to assume aspect ratio validity
+            const BASE_HEIGHT = contentRef.current.offsetHeight;
 
             // Calculate ratios
-            const scaleWidth = availWidth / NATURAL_WIDTH;
-            const scaleHeight = availHeight / naturalHeight;
+            const scaleW = availW / BASE_WIDTH;
+            const scaleH = availH / BASE_HEIGHT;
 
-            // "Contain" logic: Fit completely inside available space
-            // Allow growing (>1) and shrinking (<1)
-            const scale = Math.min(scaleWidth, scaleHeight);
+            // Uniform scale to fit
+            let scale = Math.min(scaleW, scaleH);
 
-            // Safety check
-            if (!isFinite(scale) || scale <= 0) return;
+            // Constraint: Clamp
+            const MIN_SCALE = 0.5;
+            const MAX_SCALE = 2.5;
+            scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale));
 
-            // Apply Transform
-            contentRef.current.style.transform = `scale(${scale})`;
+            // Apply to Scale Root
+            scaleRootRef.current.style.transform = `scale(${scale})`;
+
+            // Optional: Adjust Scale Root Width/Height in DOM to prevent whitespace?
+            // User requested pure transform. Keep it simple first.
+            // If scale < 1, visual is small, DOM is big. Scrollbars might appear if viewport is small.
+            // This is desired ("viewport must SCROLL when... awkward").
         };
 
-        // Observe both container (resize) and content (view change)
         const observer = new ResizeObserver(handleResize);
-        if (containerRef.current) observer.observe(containerRef.current);
+        if (viewportRef.current) observer.observe(viewportRef.current);
+        // Also observe content changes to re-calc height ratio
         if (contentRef.current) observer.observe(contentRef.current);
 
-        handleResize(); // Initial
+        handleResize();
 
         return () => observer.disconnect();
-    }, [view]); // Re-run when view changes just in case, though observer handles it
+    }, [view]);
 
     const handleStart = () => {
         setView('EXERCISE');
@@ -78,30 +81,29 @@ function App() {
     };
 
     return (
-        <div className="scaler-container" ref={containerRef} style={{ background: 'var(--color-bg)' }}>
-            <div className="app-container" ref={contentRef}>
-                {view === 'SELECTION' ? (
-                    <SelectionView
-                        currentModeId={currentModeId}
-                        setMode={setCurrentModeId}
-                        duration={selectedDuration}
-                        setDuration={setSelectedDuration}
-                        // Cycle props for sleep mode could be added here if we want a selector for it?
-                        // User only mentioned specific duration selector 1,2,3,5,10m.
-                        onStart={handleStart}
-                    />
-                ) : (
-                    <ExerciseView
-                        mode={currentMode}
-                        duration={selectedDuration}
-                        cycleLimit={currentMode.id === 'sleep' ? cycleCount : null}
-                        onStop={handleStop}
-                    />
-                )}
+        <div className="widget-viewport" ref={viewportRef} style={{ background: 'var(--color-bg)' }}>
+            <div className="widget-scale-root" ref={scaleRootRef}>
+                <div className="app-container" ref={contentRef}>
+                    {view === 'SELECTION' ? (
+                        <SelectionView
+                            currentModeId={currentModeId}
+                            setMode={setCurrentModeId}
+                            duration={selectedDuration}
+                            setDuration={setSelectedDuration}
+                            onStart={handleStart}
+                        />
+                    ) : (
+                        <ExerciseView
+                            mode={currentMode}
+                            duration={selectedDuration}
+                            cycleLimit={currentMode.id === 'sleep' ? cycleCount : null}
+                            onStop={handleStop}
+                        />
+                    )}
+                </div>
             </div>
         </div>
     )
 }
 
-export default App
 
