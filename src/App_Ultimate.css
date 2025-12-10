@@ -236,6 +236,13 @@
     /* Safari Flex Safety */
     flex: 0 0 calc(50% - 6px);
     /* Locked width */
+    min-width: 0;
+    /* Flexbox Compression Fix for Safari */
+
+    /* Truncation Safety */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .mode-row button.active {
