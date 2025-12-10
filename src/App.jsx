@@ -36,8 +36,8 @@ function App() {
     };
 
     return (
-        <div className="app-container" style={{ background: 'var(--color-bg)' }}>
-            <div className="widget-lock-wrapper">
+        <div className="outer-shell-lock">
+            <div className="app-container" style={{ background: 'var(--color-bg)' }}>
                 {view === 'SELECTION' ? (
                     <SelectionView
                         currentModeId={currentModeId}

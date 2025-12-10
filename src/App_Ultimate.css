@@ -49,15 +49,17 @@
    If bg is white and card is white, shadow is visible only at borders.
 */
 
-/* NON-INTRUSIVE LOCK WRAPPER */
-.widget-lock-wrapper {
-    width: 400px;
+/* NON-INTRUSIVE OUTER LOCK */
+.outer-shell-lock {
+    display: flex;
+    justify-content: center;
+    /* Center container if iframe > 400px */
+    width: 100%;
+    /* Fill iframe */
     min-width: 400px;
-    max-width: 400px;
-    margin: 0 auto;
-    /* Center horizontally if iframe is wider */
-    /* No height lock, let it grow vertically if needed, or lock if requested. User said "internal size... perfectly" */
-    /* Usually height auto is safer to prevent cut-off. */
+    /* HARD LOCK: Never shrink below this */
+    box-sizing: border-box;
+    /* Ensure padding doesn't skew */
 }
 
 /* Layout */
