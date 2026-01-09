@@ -4,6 +4,21 @@ import { MODES } from '../constants';
 function SelectionView({ currentModeId, setMode, duration, setDuration, onStart }) {
     const currentMode = MODES[currentModeId];
 
+    const renderLabel = (label) => {
+        const parts = label.split(' (');
+        if (parts.length === 2) {
+            const title = parts[0];
+            const timing = '(' + parts[1];
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: '1.2', textAlign: 'left' }}>
+                    <span>{title}</span>
+                    <span style={{ fontSize: '0.75rem', color: '#999' }}>{timing}</span>
+                </div>
+            );
+        }
+        return <span className="mode-label">{label}</span>;
+    };
+
     return (
         <div className="selection-view">
             {/* Mode Title - Outside and Above (Consistent with ExerciseView) */}
@@ -69,7 +84,7 @@ function SelectionView({ currentModeId, setMode, duration, setDuration, onStart 
                                     display: 'inline-block',
                                     marginRight: '8px'
                                 }}></span>
-                                <span className="mode-label">{m.label}</span>
+                                {renderLabel(m.label)}
                             </button>
                         ))}
                     </div>
@@ -112,7 +127,7 @@ function SelectionView({ currentModeId, setMode, duration, setDuration, onStart 
                                     display: 'inline-block',
                                     marginRight: '8px'
                                 }}></span>
-                                <span className="mode-label">{m.label}</span>
+                                {renderLabel(m.label)}
                             </button>
                         ))}
                     </div>
