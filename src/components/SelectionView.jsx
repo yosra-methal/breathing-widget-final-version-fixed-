@@ -8,9 +8,9 @@ function SelectionView({ currentModeId, setMode, duration, setDuration, onStart 
         const parts = label.split(' (');
         if (parts.length === 2) {
             const title = parts[0];
-            const timing = '(' + parts[1];
+            const timing = parts[1].replace(')', '');
             return (
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: '1.2', textAlign: 'left' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: '1.2', textAlign: 'center' }}>
                     <span>{title}</span>
                     <span style={{ fontSize: '0.75rem', color: '#999' }}>{timing}</span>
                 </div>
